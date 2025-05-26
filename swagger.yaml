@@ -1,0 +1,82 @@
+openapi: 3.0.0
+info:
+  title: Notes API
+  version: 1.0.0
+paths:
+  /notes:
+    get:
+      summary: Get all notes
+      responses:
+        '200':
+          description: Successful response
+  /notes/{name}:
+    get:
+      summary: Get a note by nam
+      parameters:
+        - in: path
+          name: name
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Note found
+        '404':
+          description: Note not found
+    put:
+      summary: update a note
+      parameters:
+        - in: path
+          name: name
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: Updated
+        '404':
+          description: Not found
+    delete:
+      summary: delete a note
+      parameters:
+        - in: path
+          name: name
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted
+        '404':
+          description: Not found
+  /write:
+    post:
+      summary: Upload a new note
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                note_name:
+                  type: string
+                note:
+                  type: string
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Already exists
+  /UploadForm.html:
+    get:
+      summary: Upload form
+      responses:
+        '200':
+          description: HTML form
